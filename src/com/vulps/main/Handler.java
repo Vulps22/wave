@@ -10,8 +10,9 @@ public class Handler {
     HUD hud = new HUD();
     public void tick(){
         hud.tick();
-        for (GameObject tempObject : object) {
+        for (int i = 0; i < object.size(); i++) {
 
+            GameObject tempObject = object.get(i);
             tempObject.tick();
 
         }
