@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable {
 
     public Game(){
         handler = new Handler();
-        new Window(WIDTH + 15, HEIGHT + 35, "Let's Build a game!", this);
+        new Window(WIDTH + 15, HEIGHT + 35, "Wave Defender", this);
 
         spawner = new Spawn(handler);
         registerHandlers();

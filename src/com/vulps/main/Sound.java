@@ -3,6 +3,7 @@ package com.vulps.main;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 public class Sound {
@@ -13,9 +14,14 @@ public class Sound {
 
     public Sound(String musicFilePath) {
         try {
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(musicFilePath).getAbsoluteFile());
+            URL resourceUrl = Sound.class.getResource(musicFilePath);
+            if (resourceUrl != null) {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resourceUrl);
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
+            } else {
+                System.err.println("Resource not found: " + musicFilePath);
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -23,15 +29,15 @@ public class Sound {
 
     public Sound(String musicFilePath, float volume) {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(musicFilePath).getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-
-            volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-
-            setVolume(volume);
-
-
+            URL resourceUrl = getClass().getClassLoader().getResource("resources/soundtrack_through_prism.wav") ;
+            System.out.println("Loading resource from: " + resourceUrl.getPath());
+            if (resourceUrl != null) {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resourceUrl);
+                clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+           } else {
+                System.err.println("Resource not found: " + musicFilePath);
+            }
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -45,7 +51,7 @@ public class Sound {
     }
 
     public void loop() {
-        System.out.println("Will start looping");
+       // System.out.println("Will start looping");
         if (clip != null && !looping) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             looping = true;

@@ -7,7 +7,7 @@ public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<GameObject>();
     LinkedList<Sound> sounds = new LinkedList<Sound>();
-    Sound soundtrack = new Sound("src/assets/sounds/soundtrack_through_prism.wav", -20f);
+    Sound soundtrack = new Sound("soundtrack_through_prism.wav", -20f);
     public Level level = new Level();
     private int enemiesSpawned = 0;
     private int wormholesSpawned = 0;
