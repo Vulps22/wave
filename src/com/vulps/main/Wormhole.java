@@ -1,23 +1,33 @@
 package com.vulps.main;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Wormhole extends GameObject{
 
     private int delta = 0;
+    private int lifespan = 350;
     private int enemiesSpawned = 0;
+
+    private Random r = new Random();
 
     private int spawnLimit = 5;
     public Wormhole(int x, int y, ID id, Handler handler, Boolean collision) {
         super(x, y, 100, 100, id, handler, collision);
+        checkCollision();
     }
 
     @Override
     public void tick() {
-        if(delta == 100){
+
+        if(delta == 50){
             spawnEnemy();
             delta = 0;
+        }else{
+            delta++;
         }
+        lifespan--;
+        if(lifespan <= 0) handler.removeWormhole(this);
     }
 
     @Override
@@ -31,10 +41,39 @@ public class Wormhole extends GameObject{
 
     @Override
     public Rectangle getBounds() {
-        return null;
+        return new Rectangle(x, y, WIDTH, HEIGHT);
     }
 
     private void spawnEnemy(){
 
+        if(enemiesSpawned < 5){
+            handler.addEnemy(new BasicEnemy((x + WIDTH/4), (y+HEIGHT/4), ID.BasicEnemy, handler));
+            enemiesSpawned++;
+        }
+    }
+
+    @Override
+    protected void checkCollision() {
+        for (int i = 0; i < handler.object.size(); i++) {
+
+            GameObject tempObject = handler.object.get(i);
+            if(tempObject.id == ID.Wormhole) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    onCollision(tempObject);
+                }
+
+            }
+        }
+    }
+
+    @Override
+    protected void onCollision(GameObject object) {
+        if(object.id == ID.Wormhole){
+
+            Random r = new Random();
+
+            handler.addObject(new Wormhole(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Wormhole, handler, false));
+            handler.removeObject(this);
+        }
     }
 }

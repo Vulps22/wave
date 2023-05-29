@@ -46,4 +46,7 @@ public class Trail extends GameObject{
     public Rectangle getBounds() {
         return null;
     }
+
+    @Override
+    protected void onCollision(GameObject object) {/*do nothing*/}
 }

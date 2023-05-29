@@ -34,17 +34,4 @@ public abstract class Character extends GameObject{
     @Override
     public Rectangle getBounds(){ return new Rectangle(x, y, WIDTH, HEIGHT); }
 
-    private void checkCollision(){
-        for (int i = 0; i < handler.object.size(); i++) {
-
-            GameObject tempObject = handler.object.get(i);
-            if(tempObject.isCollisionEnabled()) {
-                if (getBounds().intersects(tempObject.getBounds())) {
-                    onCollision(tempObject);
-                }
-            }
-        }
-    }
-
-    protected abstract void onCollision(GameObject object);
 }

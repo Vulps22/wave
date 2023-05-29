@@ -12,7 +12,7 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
     private static Handler handler;
-    private Spawn spawner;
+    private final Spawn spawner;
 
     public Game(){
         handler = new Handler();
@@ -28,8 +28,6 @@ public class Game extends Canvas implements Runnable {
     private void registerObjects(){
 
         handler.addObject(new Player(100, 100, ID.Player, handler));
-     //   handler.addObject(new Wormhole(100, 100, ID.Wormhole, handler, false));
-
     }
 
     private void registerHandlers(){
@@ -82,8 +80,8 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick(){
-    handler.tick();
-    spawner.tick();
+        handler.tick();
+        spawner.tick();
     }
 
     private void render(){
@@ -108,9 +106,9 @@ public class Game extends Canvas implements Runnable {
 
     public static int clamp(int var, int min, int max){
         if(var >= max){
-            return var = max;
+            return max;
         }else if(var <= min){
-            return var = min;
+            return min;
         }else{
             return var;
         }

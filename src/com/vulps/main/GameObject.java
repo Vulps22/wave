@@ -38,6 +38,20 @@ public abstract class GameObject {
         this.collision = shouldCollide;
     }
 
+    protected void checkCollision(){
+        for (int i = 0; i < handler.object.size(); i++) {
+
+            GameObject tempObject = handler.object.get(i);
+            if(tempObject.isCollisionEnabled()) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    onCollision(tempObject);
+                }
+            }
+        }
+    }
+
+    protected abstract void onCollision(GameObject object);
+
     public void setX(int x) {
         this.x = x;
     }
