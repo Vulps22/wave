@@ -6,6 +6,8 @@ import java.util.LinkedList;
 public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<GameObject>();
+    LinkedList<Sound> sounds = new LinkedList<Sound>();
+    Sound soundtrack = new Sound("src/assets/sounds/soundtrack_through_prism.wav", -20f);
     public Level level = new Level();
     private int enemiesSpawned = 0;
     private int wormholesSpawned = 0;
@@ -19,6 +21,9 @@ public class Handler {
 
         }
         hud.setLevel(level.getLevel());
+
+        if(!soundtrack.isLooping()) soundtrack.loop();
+
     }
     public void render(Graphics g){
         for (GameObject tempObject : object) {

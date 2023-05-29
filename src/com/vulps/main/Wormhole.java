@@ -71,9 +71,9 @@ public class Wormhole extends GameObject{
         if(object.id == ID.Wormhole){
 
             Random r = new Random();
+            x += 150;
+            y += 150;
 
-            handler.addObject(new Wormhole(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Wormhole, handler, false));
-            handler.removeObject(this);
         }
     }
 }
