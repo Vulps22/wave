@@ -8,7 +8,6 @@ public class Level {
     private int wormholeMax = 1;
 
     public Level(){
-        setLevel(10);
     }
     public Level(int level){
         this.level = level;
