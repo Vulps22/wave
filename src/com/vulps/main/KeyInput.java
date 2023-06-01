@@ -6,15 +6,18 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter {
 
     private final Handler handler;
+    private final Game game;
 
-    public KeyInput(Handler handler){
+    public KeyInput(Handler handler, Game game){
         this.handler = handler;
+        this.game = game;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        if(Game.isPlayerLiving()) {
+
+        if(Game.isPlayerLiving() && !game.menu.visible) {
             GameObject player = handler.getObject(ID.Player);
 
             switch (key) {
@@ -35,7 +38,7 @@ public class KeyInput extends KeyAdapter {
     @Override
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        if(Game.isPlayerLiving()) {
+        if(Game.isPlayerLiving() && !game.menu.visible) {
             GameObject player = handler.getObject(ID.Player);
 
             switch (key) {
