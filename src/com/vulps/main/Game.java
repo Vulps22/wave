@@ -13,14 +13,16 @@ public class Game extends Canvas implements Runnable {
     private boolean running = false;
     private static Handler handler;
     private final Spawn spawner;
+    public Menu menu;
 
     public Game(){
         handler = new Handler();
-        new Window(WIDTH + 15, HEIGHT + 35, "Wave Defender", this);
+        menu = new Menu(WIDTH, HEIGHT, this);
+        new Window(WIDTH + 15, HEIGHT + 35, "Vortex Evader", this);
+
 
         spawner = new Spawn(handler);
-        registerHandlers();
-        registerObjects();
+        registerListeners();
 
 
     }
@@ -30,8 +32,9 @@ public class Game extends Canvas implements Runnable {
         handler.addObject(new Player(100, 100, ID.Player, handler));
     }
 
-    private void registerHandlers(){
-        this.addKeyListener(new KeyInput(handler));
+    private void registerListeners(){
+        this.addKeyListener(new KeyInput(handler, this));
+        this.addMouseListener(new MouseInput(handler, this));
 
     }
 
@@ -80,8 +83,19 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick(){
-        handler.tick();
-        spawner.tick();
+
+        if(!isPlayerLiving()){
+            menu.visible = true;
+        }
+
+        if(menu.visible){
+            menu.tick();
+            if(handler.level.getLevel() > 5) handler.level.setLevel(5);
+            if(handler.object.size() > 1000)
+                handler.object.clear();
+        }
+            handler.tick();
+            spawner.tick();
     }
 
     private void render(){
@@ -97,7 +111,12 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
-        handler.hud.render(g);
+        if(menu.visible == false) {
+            handler.hud.render(g);
+        }
+        if(menu.visible){
+            menu.render(g);
+        }
 
         g.dispose();
         bs.show();
@@ -115,8 +134,16 @@ public class Game extends Canvas implements Runnable {
     }
 
     public static boolean isPlayerLiving(){
-        return HUD.HEALTH > 0;
+        return handler.hud.HEALTH > 0;
     }
+
+    public void restartGame(){
+        handler.reset();
+        handler.hud.HEALTH = 100;
+        handler.hud.setScore(0);
+        registerObjects();
+    }
+
 
 
 }

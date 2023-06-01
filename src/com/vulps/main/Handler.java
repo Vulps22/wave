@@ -11,7 +11,7 @@ public class Handler {
     public Level level = new Level();
     private int enemiesSpawned = 0;
     private int wormholesSpawned = 0;
-    HUD hud = new HUD();
+    public HUD hud = new HUD();
     public void tick(){
         hud.tick();
         for (int i = 0; i < object.size(); i++) {
@@ -81,4 +81,11 @@ public class Handler {
         wormholesSpawned = 0;
     }
 
+    public void reset() {
+        level.setLevel(1);
+        object.clear();
+        enemiesSpawned = 0;
+        wormholesSpawned = 0;
+
+    }
 }
