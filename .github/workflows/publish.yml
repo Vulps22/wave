@@ -23,8 +23,8 @@ jobs:
     - name: Build Java Game
       run: |
         # Assuming your game's entry point is Main.java and the package is com.example.game
-        javac -source 17 -target 17 -d build src/com/example/game/*.java
-
+        javac -source 17 -target 17 src/com/vulps/main/*.java
+        
     - name: Package JAR
       run: |
         jar cvf mygame.jar -C build .
