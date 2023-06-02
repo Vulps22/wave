@@ -11,9 +11,7 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 17
@@ -25,15 +23,21 @@ jobs:
     - name: Build Java Game
       run: |
         # Assuming your game's entry point is Main.java and the package is com.example.game
-        javac -source 17 -target 17 -d build src/com/vulps/main/*.java
-        
+        javac -source 17 -target 17 -d build src/com/example/game/*.java
+
     - name: Package JAR
       run: |
-        cd build
-        jar cvf Vortex-Evader.jar .
+        jar cvf mygame.jar -C build .
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: mygame-artifact
+        path: mygame.jar
 
   release:
     runs-on: ubuntu-latest
+    needs: build
     steps:
     - name: Install Butler
       run: |
@@ -46,7 +50,11 @@ jobs:
         # just a sanity check run (and also helpful in case you're sharing CI logs)
         ./butler -V
 
-   # - name: Create Patch and Push
-   #   run: |
- #       butler patch build username/game:channel
-#
+    - name: Download Artifacts
+      uses: actions/download-artifact@v2
+      with:
+        name: mygame-artifact
+
+    - name: Create Patch and Push
+      run: |
+        butler patch mygame.jar username/game:channel
