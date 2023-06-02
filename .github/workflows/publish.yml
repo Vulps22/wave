@@ -30,7 +30,7 @@ jobs:
     - name: Package JAR
       run: |
         cd build
-        jar cvf mygame.jar .
+        jar cvf Vortex-Evader.jar .
 
   release:
     runs-on: ubuntu-latest
