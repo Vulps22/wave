@@ -61,7 +61,6 @@ public class Wormhole extends GameObject{
                 if (getBounds().intersects(tempObject.getBounds())) {
                     onCollision(tempObject);
                 }
-
             }
         }
     }

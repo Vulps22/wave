@@ -45,8 +45,6 @@ public class BasicEnemy extends Character{
 
     private void subtractLife(){
         if(Game.isPlayerLiving()) LIFE = LIFE - 20;
-        if(LIFE <= 0){ handler.removeEnemy(this);
-            System.out.println("DEAD ALIEN");
-        }
+          if(LIFE <= 0){ handler.removeEnemy(this);}
     }
 }

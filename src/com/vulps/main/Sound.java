@@ -30,7 +30,6 @@ public class Sound {
     public Sound(String musicFilePath, float volume) {
         try {
             URL resourceUrl = getClass().getClassLoader().getResource("resources/soundtrack_through_prism.wav") ;
-            System.out.println("Loading resource from: " + resourceUrl.getPath());
             if (resourceUrl != null) {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resourceUrl);
                 clip = AudioSystem.getClip();
@@ -51,7 +50,6 @@ public class Sound {
     }
 
     public void loop() {
-       // System.out.println("Will start looping");
         if (clip != null && !looping) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
             looping = true;

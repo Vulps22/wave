@@ -71,6 +71,11 @@ public class Menu {
 
             // Draw the "PLAY" text
             g.drawString("PLAY", x, y);
+
+            g.setFont(new Font("Arial", Font.ITALIC, 12));
+            g.setColor(Color.white);
+            g.drawString("\u00A9" + "2023 Vulps23. All Rights Reserved", 10, HEIGHT - 10);
+
         }
     }
 

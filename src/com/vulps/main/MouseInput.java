@@ -34,7 +34,6 @@ public class MouseInput implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        System.out.println("hover play");
         if (game.menu.visible && game.menu.playBounds.contains(e.getX(), e.getY())) {
 
             game.menu.isMouseOverPlay = true;

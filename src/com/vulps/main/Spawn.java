@@ -27,7 +27,6 @@ public class Spawn {
             if(scoreKeep < handler.level.getScoreLimit()){
                 handler.addWormhole(new Wormhole(getSpawnableX(), getSpawnableY(), ID.Wormhole, handler, false));
             }else{
-                System.out.println("New level");
                 handler.nextLevel();
                 scoreKeep = 0;
             }

@@ -63,9 +63,7 @@ public class Handler {
     }
 
     public void addWormhole(Wormhole wormhole){
-        System.out.println("Spawn Wormhole");
         if(level.shouldSpawnWormhole(wormholesSpawned)) {
-            System.out.println("Should Spawn Wormhole");
 
             addObject(wormhole);
             wormholesSpawned++;

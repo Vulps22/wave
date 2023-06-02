@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="wave:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/wave_jar</output-path>
-    <root id="archive" name="wave.jar">
+  <artifact type="jar" name="Vortex Evader:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Vortex_Evader_jar</output-path>
+    <root id="archive" name="Vortex Evader.jar">
       <element id="module-output" name="wave" />
-      <element id="archive" name="wave.jar">
+      <element id="archive" name="Vortex Evader.jar">
         <element id="directory" name="META-INF">
           <element id="file-copy" path="$PROJECT_DIR$/out/production/wave/META-INF/MANIFEST.MF" />
         </element>
