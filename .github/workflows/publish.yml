@@ -27,13 +27,13 @@ jobs:
         
     - name: Package JAR
       run: |
-        jar cvf mygame.jar -C build .
+        jar cvf vortex-evader.jar -C build .
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: mygame-artifact
-        path: mygame.jar
+        name: vortex-evader-artifact
+        path: vortex-evader.jar
 
   release:
     runs-on: ubuntu-latest
@@ -53,8 +53,8 @@ jobs:
     - name: Download Artifacts
       uses: actions/download-artifact@v2
       with:
-        name: mygame-artifact
+        name: vortex-evader-artifact
 
-    - name: Create Patch and Push
-      run: |
-        butler patch mygame.jar username/game:channel
+  #  - name: Create Patch and Push
+ #     run: |
+    #    butler patch mygame.jar username/game:channel
