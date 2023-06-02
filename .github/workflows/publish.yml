@@ -27,7 +27,11 @@ jobs:
         
     - name: Package JAR
       run: |
-        jar cvf vortex-evader.jar -C build .
+        mkdir -p build
+        cp src/META-INF/MANIFEST.MF build/
+        cp -R src/resources build/
+        jar cvfm mygame.jar build/MANIFEST.MF -C build .
+
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
