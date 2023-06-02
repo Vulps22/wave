@@ -59,6 +59,6 @@ jobs:
       with:
         name: vortex-evader-artifact
 
-  #  - name: Create Patch and Push
- #     run: |
-    #    butler patch mygame.jar username/game:channel
+    - name: Create Patch and Push
+      run: |
+        butler patch vortex-evader.jar vulps23/vortex-evader:alpha-win-mac-linux
