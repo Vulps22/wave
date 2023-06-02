@@ -24,7 +24,7 @@ jobs:
     - name: Build Java Game
       run: |
         # Assuming your game's entry point is Main.java and the package is com.example.game
-        javac -source 1.8 -target 1.8 com/vulps/main/*.java
+        javac -source 1.8 -target 1.8 src/com/vulps/main/*.java
 
   release:
     runs-on: ubuntu-latest
