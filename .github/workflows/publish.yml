@@ -20,6 +20,8 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
+        distribution-type: 'adopt'
+
     - name: Build Java Game
       run: |
         # Assuming your game's entry point is Main.java and the package is com.example.game
