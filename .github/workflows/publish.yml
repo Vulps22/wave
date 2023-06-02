@@ -61,4 +61,4 @@ jobs:
 
     - name: Create Patch and Push
       run: |
-        ./butler patch vortex-evader.jar vulps23/vortex-evader:alpha-win-mac-linux
+        ./butler push vortex-evader.jar vulps23/vortex-evader:alpha-win-mac-linux
