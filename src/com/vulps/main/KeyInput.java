@@ -42,9 +42,37 @@ public class KeyInput extends KeyAdapter {
             GameObject player = handler.getObject(ID.Player);
 
             switch (key) {
-                case KeyEvent.VK_W, KeyEvent.VK_S -> player.setVelY(0);
-                case KeyEvent.VK_A, KeyEvent.VK_D -> player.setVelX(0);
+                case KeyEvent.VK_W -> stopYNeg();
+                case KeyEvent.VK_S -> stopYPos();
+                case KeyEvent.VK_A -> stopXNeg();
+                case KeyEvent.VK_D -> stopXPos();
             }
         }
+    }
+
+    private void stopXPos(){
+        GameObject player = handler.getObject(ID.Player);
+
+        if(player.velX > 0) player.setVelX(0);
+
+    }
+    private void stopXNeg(){
+        GameObject player = handler.getObject(ID.Player);
+
+        if(player.velX < 0) player.setVelX(0);
+
+    }
+
+    private void stopYPos(){
+        GameObject player = handler.getObject(ID.Player);
+
+        if(player.velY > 0) player.setVelY(0);
+
+    }
+    private void stopYNeg(){
+        GameObject player = handler.getObject(ID.Player);
+
+        if(player.velY < 0) player.setVelY(0);
+
     }
 }
