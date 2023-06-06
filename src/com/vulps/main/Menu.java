@@ -8,6 +8,8 @@ public class Menu {
     private int WIDTH, HEIGHT;
     private Component parent;
     public Rectangle playBounds;
+
+    private int score;
     public Boolean visible = true;
     public boolean isMouseOverPlay = false;
 
@@ -76,7 +78,32 @@ public class Menu {
             g.setColor(Color.white);
             g.drawString("\u00A9" + "2023 Vulps23. All Rights Reserved", 10, HEIGHT - 10);
 
+            Game game = (Game)parent;
+
+            font = new Font("Arial", Font.ITALIC, 25);
+            g.setFont(font);
+            fontMetrics = g.getFontMetrics(font);
+            textWidth = fontMetrics.stringWidth("Last Score: " + score);
+            x = (WIDTH - textWidth) / 2;
+
+            g.setColor(Color.white);
+            g.drawString("Last Score: " + score, x, y - 150);
+
+            textWidth = fontMetrics.stringWidth("Level: " + score / 1000);
+            x = (WIDTH - textWidth) / 2;
+
+            g.setColor(Color.white);
+            g.drawString("Level: " + score / 1000, x, y - 100);
         }
+    }
+
+    public void setVisible(boolean visible, int score){
+        this.score = score;
+        this.visible = visible;
+    }
+
+    public void setVisible(boolean visible){
+        this.visible = visible;
     }
 
 
