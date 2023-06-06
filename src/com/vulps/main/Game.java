@@ -84,7 +84,9 @@ public class Game extends Canvas implements Runnable {
     private void tick(){
 
         if(!isPlayerLiving()){
-            menu.visible = true;
+            if(menu.visible == false) {
+                menu.setVisible(true, handler.hud.getScore());
+            }
         }
 
         if(menu.visible){
@@ -120,6 +122,10 @@ public class Game extends Canvas implements Runnable {
         g.dispose();
         bs.show();
 
+    }
+
+    public Handler getHandler(){
+        return handler;
     }
 
     public static int clamp(int var, int min, int max){
