@@ -10,6 +10,7 @@ public class Sound {
     private Clip clip;
     private boolean looping;
     private FloatControl volumeControl;
+    private float volume;
 
 
     public Sound(String musicFilePath) {
@@ -19,6 +20,8 @@ public class Sound {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resourceUrl);
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
+                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                setVolume(100);
             } else {
                 System.err.println("Resource not found: " + musicFilePath);
             }
@@ -34,6 +37,8 @@ public class Sound {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(resourceUrl);
                 clip = AudioSystem.getClip();
                 clip.open(audioInputStream);
+                volumeControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                setVolume(volume);
            } else {
                 System.err.println("Resource not found: " + musicFilePath);
             }
@@ -69,14 +74,13 @@ public class Sound {
     }
 
     public void setVolume(float volume) {
-        if (volumeControl != null) {
-            if (volume < volumeControl.getMinimum()) {
-                volume = volumeControl.getMinimum();
-            } else if (volume > volumeControl.getMaximum()) {
-                volume = volumeControl.getMaximum();
-            }
-            volumeControl.setValue(volume);
-        }
+        if (volumeControl == null) return;
+
+        if (volume < volumeControl.getMinimum()) {
+            this.volume = volumeControl.getMinimum();
+        } else this.volume = Math.min(volume, volumeControl.getMaximum());
+
+        volumeControl.setValue(this.volume);
     }
 }
 

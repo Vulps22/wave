@@ -26,14 +26,12 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void registerObjects(){
-
         handler.addObject(new Player(100, 100, ID.Player, handler));
     }
 
     private void registerListeners(){
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(new MouseInput(handler, this));
-
     }
 
     public synchronized void start(){

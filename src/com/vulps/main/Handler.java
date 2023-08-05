@@ -8,27 +8,28 @@ public class Handler {
 
     LinkedList<GameObject> object = new LinkedList<GameObject>();
     LinkedList<Sound> sounds = new LinkedList<Sound>();
-    Sound soundtrack = new Sound("soundtrack_through_prism.wav", -20f);
+    private final Sound soundtrack = new Sound("soundtrack_through_prism.wav", -35f); // 0 = 100%, -100f = 0%
     public Level level = new Level();
     private int enemiesSpawned = 0;
     private int wormholesSpawned = 0;
     public HUD hud = new HUD();
     public void tick(){
         hud.tick();
-        for (int i = 0; i < object.size(); i++) {
+
+        for (int i = 0; i < object.size(); i++) { // Advanced forloop for some reason messes up
 
             GameObject tempObject = object.get(i);
             tempObject.tick();
 
         }
+
         hud.setLevel(level.getLevel());
 
         if(!soundtrack.isLooping()) soundtrack.loop();
-
     }
-    public void render(Graphics g){
+    public void render(Graphics graphics){
         for (GameObject tempObject : object) {
-            tempObject.render(g);
+            tempObject.render(graphics);
         }
     }
     public void addObject(GameObject object){

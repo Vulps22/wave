@@ -25,12 +25,10 @@ public class BasicEnemy extends Character{
         if(y <= 0 || y >= Game.HEIGHT - 32){
             velY *=-1;
             subtractLife();
-
         }
         if(x <= 0 || x >= Game.WIDTH - 32){
             velX *=-1;
             LIFE = LIFE - 20;
-
         }
         if(velX == velY) velX += 10;
 
