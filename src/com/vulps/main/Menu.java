@@ -10,13 +10,9 @@ public class Menu {
     public Rectangle playBounds;
 
     private int score;
-    public Boolean visible = true;
+    private int plays;
+    public Boolean visible = false;
     public boolean isMouseOverPlay = false;
-
-    // Colors for the glowing effect
-    private final Color glowColor = new Color(255, 0, 0); // Semi-transparent white
-    private final int glowRadius = 20; // Radius of the glow effect
-
 
     public Menu(int WIDTH, int HEIGHT, Component parent) {
         this.WIDTH = WIDTH;
@@ -73,7 +69,12 @@ public class Menu {
             graphics.setFont(new Font("Arial", Font.ITALIC, 12));
             graphics.setColor(Color.white);
             graphics.drawString("© 2023 Vulps23. All Rights Reserved", 10, HEIGHT - 10);
+           
+            // Get the score and level information from the parent game
+            int score = this.score;
+            int level = score / 1000;
 
+            // Draw the "Last Score" text
             font = new Font("Arial", Font.ITALIC, 25);
             graphics.setFont(font);
             fontMetrics = graphics.getFontMetrics(font);
@@ -83,21 +84,50 @@ public class Menu {
             graphics.setColor(Color.white);
             graphics.drawString("Last Score: " + score, x, y - 150);
 
-            textWidth = fontMetrics.stringWidth("Level: " + score / 1000);
+            // Draw the "Level" text
+            textWidth = fontMetrics.stringWidth("Level: " + level);
             x = (WIDTH - textWidth) / 2;
+            graphics.setColor(Color.WHITE);
+            graphics.drawString("Level: " + level, x, y - 100);
 
-            graphics.setColor(Color.white);
-            graphics.drawString("Level: " + score / 1000, x, y - 100);
+            //Draw the "Plays" text
+            font = new Font("Arial", Font.ITALIC, 50);
+            graphics.setFont(font);
+            fontMetrics = graphics.getFontMetrics(font);
+
+            int plays = this.plays;
+            textWidth = fontMetrics.stringWidth(String.valueOf(plays));
+            x = (WIDTH - textWidth) / 2;
+            graphics.setColor(Color.WHITE);
+            graphics.drawString(String.valueOf(plays), x + 300, y - 25);
+
+            //Draw the "Plays" text
+            font = new Font("Arial", Font.ITALIC, 30);
+            graphics.setFont(font);
+            fontMetrics = graphics.getFontMetrics(font);
+
+            textWidth = fontMetrics.stringWidth("Total Plays worldwide");
+            x = (WIDTH - textWidth) / 2;
+            graphics.setColor(Color.WHITE);
+            graphics.drawString("Total Plays Worldwide!", x + 300, y + 25);
+
         }
     }
 
     public void setVisible(boolean visible, int score){
         this.score = score;
+        // Get the number of plays from the server asynchronously
+        new Thread(() -> {
+            try {
+                // Get the number of plays from the server
+                plays = RequestManager.getPlays();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }).start();
+
         this.visible = visible;
     }
 
-    public void setVisible(boolean visible){
-        this.visible = visible;
-    }
 
 }
