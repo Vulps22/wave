@@ -19,20 +19,18 @@ public class KeyInput extends KeyAdapter {
 
         if(Game.isPlayerLiving() && !game.menu.visible) {
             GameObject player = handler.getObject(ID.Player);
-
+            if (player == null) return;
             switch (key) {
                 case KeyEvent.VK_W -> player.setVelY(-5);
                 case KeyEvent.VK_A -> player.setVelX(-5);
                 case KeyEvent.VK_S -> player.setVelY(5);
                 case KeyEvent.VK_D -> player.setVelX(5);
-                case KeyEvent.VK_ESCAPE -> System.exit(0);
-            }
-        }else{
-            if (key == KeyEvent.VK_ESCAPE) {
-                System.exit(0);
             }
         }
 
+        if(key == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
     }
 
     @Override

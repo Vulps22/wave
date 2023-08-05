@@ -18,24 +18,20 @@ public class Game extends Canvas implements Runnable {
     public Game(){
         handler = new Handler();
         menu = new Menu(WIDTH, HEIGHT, this);
-        new Window(WIDTH + 15, HEIGHT + 35, "Vortex Evader", this);
 
+        new Window(WIDTH + 15, HEIGHT + 35, "Vortex Evader", this);
 
         spawner = new Spawn(handler);
         registerListeners();
-
-
     }
 
     private void registerObjects(){
-
         handler.addObject(new Player(100, 100, ID.Player, handler));
     }
 
     private void registerListeners(){
         this.addKeyListener(new KeyInput(handler, this));
         this.addMouseListener(new MouseInput(handler, this));
-
     }
 
     public synchronized void start(){
@@ -50,7 +46,6 @@ public class Game extends Canvas implements Runnable {
             running = false;
         }catch (Exception e){
             e.printStackTrace();
-
         }
     }
 
@@ -62,18 +57,16 @@ public class Game extends Canvas implements Runnable {
         double ns = 1000000000 / amountOfTicks;
         double delta = 0;
         long timer = System.currentTimeMillis();
-        int frames = 0;
+
         while(running){
             long now = System.nanoTime();
             delta += (now - lastTime) / ns;
             lastTime = now;
-            while (delta >= 1){
+            while(delta >= 1){
                 tick();
                 delta--;
             }
             if(running) render();
-            frames++;
-
             if(System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
             }
@@ -82,46 +75,43 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick(){
-
         if(!isPlayerLiving()){
-            if(menu.visible == false) {
+            if(!menu.visible) {
                 menu.setVisible(true, handler.hud.getScore());
             }
         }
-
         if(menu.visible){
             menu.tick();
             if(handler.level.getLevel() > 5) handler.level.setLevel(5);
-            if(handler.object.size() > 1000)
-                handler.object.clear();
+            if(handler.object.size() > 1000) handler.object.clear();
         }
-            handler.tick();
-            spawner.tick();
+        handler.tick();
+        spawner.tick();
     }
 
     private void render(){
-        BufferStrategy bs = this.getBufferStrategy();
-        if(bs == null){
+        BufferStrategy bufferStrategy = this.getBufferStrategy();
+
+        if(bufferStrategy == null){
             this.createBufferStrategy(3);
             return;
         }
 
-        Graphics g = bs.getDrawGraphics();
+        Graphics graphics = bufferStrategy.getDrawGraphics();
 
-        g.setColor(Color.black);
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        graphics.setColor(Color.black);
+        graphics.fillRect(0, 0, WIDTH, HEIGHT);
 
-        handler.render(g);
-        if(menu.visible == false) {
-            handler.hud.render(g);
+        handler.render(graphics);
+
+        if (menu.visible) {
+            menu.render(graphics);
+        } else {
+            handler.hud.render(graphics);
         }
-        if(menu.visible){
-            menu.render(g);
-        }
 
-        g.dispose();
-        bs.show();
-
+        graphics.dispose();
+        bufferStrategy.show();
     }
 
     public Handler getHandler(){
@@ -131,11 +121,7 @@ public class Game extends Canvas implements Runnable {
     public static int clamp(int var, int min, int max){
         if(var >= max){
             return max;
-        }else if(var <= min){
-            return min;
-        }else{
-            return var;
-        }
+        }else return Math.max(var, min);
     }
 
     public static boolean isPlayerLiving(){
@@ -148,7 +134,5 @@ public class Game extends Canvas implements Runnable {
         handler.hud.setScore(0);
         registerObjects();
     }
-
-
 
 }

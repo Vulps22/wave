@@ -4,7 +4,7 @@ public class Level {
 
     private int level = 1;
     private int scoreLimit = 1000;
-    private int enemieMax = 1;
+    private int enemyMax = 1;
     private int wormholeMax = 1;
 
     public Level(){
@@ -25,7 +25,7 @@ public class Level {
 
     public void setLevel(int level) {
         this.level = level;
-        enemieMax = this.level;
+        enemyMax = this.level;
         wormholeMax = (int) Math.ceil((double) this.level / 5);
     }
 
@@ -38,11 +38,11 @@ public class Level {
     }
 
     public int getEnemyMax() {
-        return enemieMax;
+        return enemyMax;
     }
 
     public void setEnemyMax(int enemieMax) {
-        this.enemieMax = enemieMax;
+        this.enemyMax = enemieMax;
     }
 
     public int getWormholeMax() {
@@ -53,14 +53,12 @@ public class Level {
         this.wormholeMax = wormholeMax;
     }
 
-    public Boolean shouldSpawnEnemy (int currentEnemies){
-        if(currentEnemies < enemieMax) return true;
-        else return false;
+    public Boolean shouldSpawnEnemy(int currentEnemies){
+        return currentEnemies < enemyMax;
     }
 
     public Boolean shouldSpawnWormhole(int currentWormholes){
-        if(currentWormholes < wormholeMax) return true;
-        else return false;
+        return currentWormholes < wormholeMax;
     }
 
 }
