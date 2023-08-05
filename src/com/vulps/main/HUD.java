@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class HUD {
 
-    public int HEALTH = 100;
+    public int HEALTH = 0;
 
     private int greenValue = 255;
     private int score = 0;
@@ -44,8 +44,6 @@ public class HUD {
     public void setLevel(int level){
         this.level = level;
     }
-    public int getLevel(){
-        return level;
-    }
+
 
 }

@@ -133,6 +133,7 @@ public class Game extends Canvas implements Runnable {
         handler.hud.HEALTH = 100;
         handler.hud.setScore(0);
         registerObjects();
+        RequestManager.addPlaying();
     }
 
 }
