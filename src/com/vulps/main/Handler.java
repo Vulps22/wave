@@ -1,6 +1,7 @@
 package com.vulps.main;
 
 import java.awt.*;
+import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 
 public class Handler {
@@ -34,12 +35,16 @@ public class Handler {
         this.object.add(object);
     }
     public GameObject getObject(ID id) {
-        for (GameObject tempObject : object) {
-            if (tempObject.getId() == id) {
-                return tempObject;
+        try {
+            for (GameObject tempObject : object) {
+                if (tempObject.getId() == id) {
+                    return tempObject;
+                }
             }
+            return null;
+        } catch (ConcurrentModificationException exception) {
+            return null;
         }
-        return null;
     }
     public void removeObject(GameObject object){
         this.object.remove(object);
@@ -64,7 +69,6 @@ public class Handler {
 
     public void addWormhole(Wormhole wormhole){
         if(level.shouldSpawnWormhole(wormholesSpawned)) {
-
             addObject(wormhole);
             wormholesSpawned++;
         }

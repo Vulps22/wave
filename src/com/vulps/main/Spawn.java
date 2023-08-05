@@ -10,8 +10,6 @@ public class Spawn {
     private int delta = 100;
     public Spawn(Handler handler){
         this.handler = handler;
-        handler.addWormhole(new Wormhole(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.Wormhole, handler, false));
-
     }
 
     public void tick(){

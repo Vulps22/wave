@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class Menu {
 
-    private int WIDTH, HEIGHT;
-    private Component parent;
+    private final int WIDTH, HEIGHT;
+    private final Component parent;
     public Rectangle playBounds;
 
     private int score;
@@ -14,8 +14,8 @@ public class Menu {
     public boolean isMouseOverPlay = false;
 
     // Colors for the glowing effect
-    private Color glowColor = new Color(255, 0, 0); // Semi-transparent white
-    private int glowRadius = 20; // Radius of the glow effect
+    private final Color glowColor = new Color(255, 0, 0); // Semi-transparent white
+    private final int glowRadius = 20; // Radius of the glow effect
 
 
     public Menu(int WIDTH, int HEIGHT, Component parent) {
@@ -42,17 +42,13 @@ public class Menu {
         int mouseX = (int) mouseLocation.getX();
         int mouseY = (int) mouseLocation.getY();
 
-        if (playBounds.contains(mouseX, mouseY)) {
-            isMouseOverPlay = true;
-        }else{
-            isMouseOverPlay = false;
-        }
+        isMouseOverPlay = playBounds.contains(mouseX, mouseY);
     }
 
 
-    public void render(Graphics g) {
+    public void render(Graphics graphics) {
         Font font = new Font("Arial", Font.BOLD, 48);
-        FontMetrics fontMetrics = g.getFontMetrics(font);
+        FontMetrics fontMetrics = graphics.getFontMetrics(font);
         int textWidth = fontMetrics.stringWidth("PLAY");
         int textHeight = fontMetrics.getHeight();
 
@@ -61,39 +57,37 @@ public class Menu {
 
         if (visible) {
             // Draw the "PLAY" text
-            g.setFont(font);
+            graphics.setFont(font);
 
             if (isMouseOverPlay) {
                 // Set the color to red when the mouse hovers over the play button
-                g.setColor(Color.RED);
+                graphics.setColor(Color.RED);
             } else {
                 // Set the color to white for normal state
-                g.setColor(Color.WHITE);
+                graphics.setColor(Color.WHITE);
             }
 
             // Draw the "PLAY" text
-            g.drawString("PLAY", x, y);
+            graphics.drawString("PLAY", x, y);
 
-            g.setFont(new Font("Arial", Font.ITALIC, 12));
-            g.setColor(Color.white);
-            g.drawString("\u00A9" + "2023 Vulps23. All Rights Reserved", 10, HEIGHT - 10);
-
-            Game game = (Game)parent;
+            graphics.setFont(new Font("Arial", Font.ITALIC, 12));
+            graphics.setColor(Color.white);
+            graphics.drawString("© 2023 Vulps23. All Rights Reserved", 10, HEIGHT - 10);
 
             font = new Font("Arial", Font.ITALIC, 25);
-            g.setFont(font);
-            fontMetrics = g.getFontMetrics(font);
+            graphics.setFont(font);
+            fontMetrics = graphics.getFontMetrics(font);
             textWidth = fontMetrics.stringWidth("Last Score: " + score);
             x = (WIDTH - textWidth) / 2;
 
-            g.setColor(Color.white);
-            g.drawString("Last Score: " + score, x, y - 150);
+            graphics.setColor(Color.white);
+            graphics.drawString("Last Score: " + score, x, y - 150);
 
             textWidth = fontMetrics.stringWidth("Level: " + score / 1000);
             x = (WIDTH - textWidth) / 2;
 
-            g.setColor(Color.white);
-            g.drawString("Level: " + score / 1000, x, y - 100);
+            graphics.setColor(Color.white);
+            graphics.drawString("Level: " + score / 1000, x, y - 100);
         }
     }
 
@@ -105,6 +99,5 @@ public class Menu {
     public void setVisible(boolean visible){
         this.visible = visible;
     }
-
 
 }

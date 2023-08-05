@@ -9,9 +9,6 @@ public class Wormhole extends GameObject{
     private int lifespan = 350;
     private int enemiesSpawned = 0;
 
-    private Random r = new Random();
-
-    private int spawnLimit = 5;
     public Wormhole(int x, int y, ID id, Handler handler, Boolean collision) {
         super(x, y, 100, 100, id, handler, collision);
         checkCollision();
@@ -19,7 +16,6 @@ public class Wormhole extends GameObject{
 
     @Override
     public void tick() {
-
         if(delta == 50){
             spawnEnemy();
             delta = 0;
@@ -45,7 +41,7 @@ public class Wormhole extends GameObject{
     }
 
     private void spawnEnemy(){
-
+        // Spawn Limit of 5
         if(enemiesSpawned < 5){
             handler.addEnemy(new BasicEnemy((x + WIDTH/4), (y+HEIGHT/4), ID.BasicEnemy, handler));
             enemiesSpawned++;

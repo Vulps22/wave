@@ -32,7 +32,6 @@ public class BasicEnemy extends Character{
             LIFE = LIFE - 20;
 
         }
-
         if(velX == velY) velX += 10;
 
         handler.addObject(new Trail(x, y, ID.Trail, WIDTH, HEIGHT, 0.02f, Color.red, handler));
@@ -44,7 +43,7 @@ public class BasicEnemy extends Character{
     }
 
     private void subtractLife(){
-        if(Game.isPlayerLiving()) LIFE = LIFE - 20;
-          if(LIFE <= 0){ handler.removeEnemy(this);}
+        if (Game.isPlayerLiving()) LIFE = LIFE - 20;
+        if (LIFE <= 0) handler.removeEnemy(this);
     }
 }
